@@ -8,7 +8,7 @@ from application.models import TestTable
 db.create_all()
 
 test1 = TestTable(first_name='Dolapo')
-test2 = TestTable(first_name='Shaaera')
+test2 = TestTable(first_name='Shaeera')
 test3 = TestTable(first_name='Michaela')
 
 db.session.add(test1)
