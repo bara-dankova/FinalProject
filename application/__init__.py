@@ -1,10 +1,9 @@
 # import Flask class from the flask module
 from flask import Flask
-
 from flask_sqlalchemy import SQLAlchemy
 
 # import the ./application/routes.py file
-from application import routes
+# from application import routes
 
 
 # create a new instance of Flask and store it in app
