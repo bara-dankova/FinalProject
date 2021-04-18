@@ -19,3 +19,4 @@ other stuff
 - .gitignore: stuff like virtual environments to avoid git mess
 
     
+-mg test from branchmg
