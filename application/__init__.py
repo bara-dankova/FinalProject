@@ -9,7 +9,9 @@ from flask_sqlalchemy import SQLAlchemy
 # create a new instance of Flask and store it in app
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pyodbc://admin:M27awsdb@mg-aws-db.cedavxifa3ow.us-east-2.rds.amazonaws.com/first_aws_db"
+#app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pyodbc://admin:M27awsdb@mg-aws-db.cedavxifa3ow.us-east-2.rds.amazonaws.com/first_aws_db"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://finalproject:finalpassword@localhost/finalprojectdb"
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # this is for the hidden tag in html forms

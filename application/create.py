@@ -5,9 +5,10 @@ from application import db
 from application.models import TestTable
 
 #create the database schema
+db.drop_all()
 db.create_all()
 
-test1 = TestTable(first_name='Dolapo')
+test1 = TestTable(first_name='Victoria')
 test2 = TestTable(first_name='Shaeera')
 test3 = TestTable(first_name='Michaela')
 
