@@ -1,4 +1,20 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<p>This is the Contact Page</p>
+<h1>Contact us</h1>
+<div class="form">
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+        {{ form.first_name.label }} {{ form.first_name }}
+        <br>
+        {{ form.last_name.label }} {{ form.last_name }}
+        <br>
+        {{ form.subject.label }} {{ form.subject }}
+        <br>
+        {{ form.message.label }} {{ form.message }}
+        <br>
+        {{ form.submit }}
+        <br>
+    {{ message }}
+    </form>
+</div>
 {% endblock %}
