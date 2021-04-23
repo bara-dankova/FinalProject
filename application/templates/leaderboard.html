@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body_content %}
+<h1>Leader Board</h1>
+<hr>
+<div class="leaderboard-container">
+{%for contestant in contestants_list: %}
+<div class="leaderboard-item">
+
+<h2>{{song.query.filter_by(contestant_id=contestant.contestant_id).first().song_name}}</h2>
+<p> Performed by {{contestant.first_name}} {{contestant.last_name}} ({{contestant.pronoun}})
+    <br>
+Country: {{contestant.country}}
+</p>
+<button>like</button>
+<hr>
+    </div>
+    {% endfor %}
+      </div>
+{% endblock %}
