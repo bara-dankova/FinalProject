@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for
 from application import app, db
 from application.forms import Contact_us_form
-from application.models import Contact, Song, Contestant
+from application.models import Contact, Song, Contestant, Blog
 
 
 @app.route('/')
@@ -11,9 +11,13 @@ def home():
 
 
 # create url for a particular blog post
-@app.route('/blogpost')
+@app.route('/blogpost', methods=['GET'])
 def blogpost1():
-    return render_template('blogpost.html', title='First Blog Post')
+    #hard coded to Vincent, but ideally filters by contestant name from URL through Contestant table
+    blog = Blog.query.filter_by(contestant_id=1).first()
+    #to query contestants by name in URL and find the appropriate blog post
+    #contestant = Contestant.query.all(name_from_url)
+    return render_template('blogpost.html', title='Vincent Bueno', blog=blog)
 
 
 @app.route('/contact', methods=['POST', 'GET'])
