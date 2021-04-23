@@ -1,7 +1,6 @@
 from flask import render_template, request, url_for
 from application import app, db
 
-
 @app.route('/')
 @app.route('/home')
 def home():
