@@ -1,4 +1,9 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<p>This is the First Blog Post</p>
+<h1>{{blog.blog_title}}</h1>
+<p>Published on {{blog.date_posted}}</p>
+<p>This post is about {{contestant.first_name}} performing {{song.query.filter_by(contestant_id=contestant_id).first().song_name}}</p>
+<p>You are the {{blog.blog_views}}th Eurovision fan to read this post!</p>
+<hr>
+<p>{{blog.blog_text}}</p>
 {% endblock %}
