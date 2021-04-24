@@ -11,13 +11,14 @@ def home():
 
 
 # create url for a particular blog post
-@app.route('/blogpost', methods=['GET'])
-def blogpost1():
+@app.route('/blogpost/<int:contestant_id>', methods=['GET'])
+def blogpost1(contestant_id):
     #hard coded to Vincent, but ideally filters by contestant name from URL through Contestant table
-    blog = Blog.query.filter_by(contestant_id=1).first()
+    blog = Blog.query.filter_by(contestant_id=contestant_id).first()
+    contestant = Contestant.query.filter_by(contestant_id=contestant_id).first()
     #to query contestants by name in URL and find the appropriate blog post
     #contestant = Contestant.query.all(name_from_url)
-    return render_template('blogpost.html', title='Vincent Bueno', blog=blog)
+    return render_template('blogpost.html', title=contestant.first_name, blog=blog, contestant=contestant, contestant_id=contestant_id, song = Song)
 
 
 @app.route('/contact', methods=['POST', 'GET'])

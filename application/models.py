@@ -23,7 +23,7 @@ class Blog(db.Model):
     date_posted = db.Column(db.Date, nullable=False)
     contestant_id = db.Column(db.Integer, db.ForeignKey("contestant.contestant_id"), nullable=False)
     blog_views = db.Column(db.Integer, nullable=False)
-    blog_title = db.Column(db.String(30), nullable=False)
+    blog_title = db.Column(db.String(100), nullable=False)
     blog_text = db.Column(db.String(1000), nullable=False)
 
 class Contact(db.Model):
