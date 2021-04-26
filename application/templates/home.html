@@ -1,4 +1,19 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<p>This is the Home Page</p>
+<div class="featured-posts-container">
+{%for post in blogs: %}
+<div class="featured-post">
+<h2><a href="{{url_for('blogpost1', contestant_id=post.contestant_id)}}">{{post.blog_title}}</a></h2>
+<p>{{post.date_posted}}</p>
+<hr>
+<p>This post is about {{contestant.query.filter_by(contestant_id=post.contestant_id).first().first_name}} from {{contestant.query.filter_by(contestant_id=post.contestant_id).first().country}}
+ performing {{song.query.filter_by(contestant_id=post.contestant_id).first().song_name}}</p>
+<p>You are the {{post.blog_views}}th Eurovision fan to read this post!</p>
+<p>Like this post: <button>like</button></p>
+<hr>
+<p>{{post.blog_text}}</p>
+<hr>
+    </div>
+    {% endfor %}
+      </div>
 {% endblock %}
