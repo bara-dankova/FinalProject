@@ -1,7 +1,8 @@
-from flask import render_template, request, url_for
+from flask import render_template, request, url_for, redirect
 from application import app, db
-from application.forms import Contact_us_form
-from application.models import Contact, Song, Contestant, Blog
+from application.forms import *
+from application.models import *
+from datetime import datetime
 
 
 @app.route('/')
@@ -13,18 +14,41 @@ def home():
 # create url for a particular blog post
 @app.route('/blogpost/<int:contestant_id>', methods=['GET'])
 def blogpost1(contestant_id):
-    #hard coded to Vincent, but ideally filters by contestant name from URL through Contestant table
+    # hard coded to Vincent, but ideally filters by contestant name from URL through Contestant table
     blog = Blog.query.filter_by(contestant_id=contestant_id).first()
     contestant = Contestant.query.filter_by(contestant_id=contestant_id).first()
-    #to query contestants by name in URL and find the appropriate blog post
-    #contestant = Contestant.query.all(name_from_url)
-    return render_template('blogpost.html', title=contestant.first_name, blog=blog, contestant=contestant, contestant_id=contestant_id, song = Song)
+    song = Song.query.filter_by(contestant_id=contestant_id).first()
+    comments = Comment.query.filter_by(blog_id=blog.blog_id).all()
+    # to query contestants by name in URL and find the appropriate blog post
+    # contestant = Contestant.query.all(name_from_url)
+    return render_template('blogpost.html', title=contestant.first_name, blog=blog, contestant=contestant, song=song,
+                           comments=comments, form=CommentForm(),
+                           comment_form_url=f"/blogpost/{contestant.contestant_id}/comment")
+
+
+@app.route('/blogpost/<int:contestant_id>/comment', methods=['POST'])
+def add_comment(contestant_id):
+    form = CommentForm()
+
+    name = form.name.data
+    text = form.text.data
+    time = datetime.utcnow()
+
+    print(name, text, time)
+
+    blog = Blog.query.filter_by(contestant_id=contestant_id).first()
+
+    comment = Comment(time=time, text=text, blog_id=blog.blog_id)
+    db.session.add(comment)
+    db.session.commit()
+
+    return redirect(f"/blogpost/{contestant_id}")
 
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
     error = ''
-    form = Contact_us_form()
+    form = ContactUsForm()
     if request.method == 'POST':
         first_name = form.first_name.data
         last_name = form.last_name.data
@@ -51,7 +75,6 @@ def contact():
 
 @app.route('/leaderboard')
 def leaderboard():
-
     songs_list = Song.query.all()
     contestants_list = Contestant.query.all()
 
@@ -61,5 +84,4 @@ def leaderboard():
                            contestants_list=contestants_list,
                            song=Song,
                            contestant=Contestant,
-    )
-
+                           )
