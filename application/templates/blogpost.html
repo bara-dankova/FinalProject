@@ -4,6 +4,12 @@
 <p>Published on {{blog.date_posted}}</p>
 <p>This post is about {{contestant.first_name}} performing {{song.song_name}}</p>
 <p>You are the {{blog.blog_views}}th Eurovision fan to read this post!</p>
+ {%if blog.blog_likes !=0: %}
+            <p>{{blog.blog_likes}} people liked this</p>
+             {% endif %}
+<p>Like this post:
+                <button><a href="{{ url_for('likeblog', contestant_id=blog.contestant_id) }}">like</a></button>
+            </p>
 <hr>
 <p>{{blog.blog_text}}</p>
 
