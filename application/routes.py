@@ -15,12 +15,19 @@ def home():
 
 
 # create url for a particular blog post
-@app.route('/blogpost/<int:contestant_id>', methods=['GET'])
+@app.route('/blogpost/<int:contestant_id>', methods=['GET', 'PUT'])
 def blogpost1(contestant_id):
     blog = Blog.query.filter_by(contestant_id=contestant_id).first()
     contestant = Contestant.query.filter_by(contestant_id=contestant_id).first()
+
     song = Song.query.filter_by(contestant_id=contestant_id).first()
     comments = Comment.query.filter_by(blog_id=blog.blog_id).all()
+    if blog.blog_views is not None:
+        setattr(blog, 'blog_views', blog.blog_views + 1)
+        db.session.commit()
+    else:
+        setattr(blog, 'blog_views', 1)
+        db.session.commit()
     # to query contestants by name in URL and find the appropriate blog post
     # contestant = Contestant.query.all(name_from_url)
     return render_template('blogpost.html', title=contestant.first_name, blog=blog, contestant=contestant, song=song,
@@ -78,5 +85,31 @@ def leaderboard():
                            songs_list=songs_list,
                            contestants_list=contestants_list,
                            song=Song,
-                           contestant=Contestant,
-                           )
+                           contestant=Contestant)
+
+
+@app.route('/blog/like/<int:contestant_id>', methods=[ 'GET', 'PUT'])
+def likeblog(contestant_id):
+    liked_blog = Blog.query.filter_by(contestant_id=contestant_id).first()
+
+    if liked_blog.blog_likes is not None:
+        setattr(liked_blog,'blog_likes', liked_blog.blog_likes+1)
+        db.session.commit()
+    else:
+        setattr(liked_blog, 'blog_likes', 1)
+        db.session.commit()
+    return blogpost1(contestant_id)
+
+
+# stillworking on connecting this to the right song
+@app.route('/song/like/<int:contestant_id>', methods=['GET', 'PUT'])
+def likesong(contestant_id):
+    liked_song = Song.query.filter_by(contestant_id=contestant_id).first()
+
+    if liked_song.song_likes is not None:
+        setattr(liked_song,'song_likes', liked_song.song_likes+1)
+        db.session.commit()
+    else:
+        setattr(liked_song, 'song_likes', 1)
+        db.session.commit()
+    return leaderboard()
