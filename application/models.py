@@ -33,5 +33,13 @@ class Contact(db.Model):
     subject = db.Column(db.String(30), nullable=False)
     message = db.Column(db.String(1000), nullable=False)
 
+class Comment(db.Model):
+    comment_id = db.Column(db.Integer, primary_key=True)
+    time = db.Column(db.DateTime, nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    blog_id = db.Column(db.Integer, nullable=False)
+
+
+
 # 1. Models -- what tables and what columns
 # 2. CRUD (create read update delete)
