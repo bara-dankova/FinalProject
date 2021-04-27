@@ -2,8 +2,26 @@
 {% block body_content %}
 <h1>{{blog.blog_title}}</h1>
 <p>Published on {{blog.date_posted}}</p>
-<p>This post is about {{contestant.first_name}} performing {{song.query.filter_by(contestant_id=contestant_id).first().song_name}}</p>
+<p>This post is about {{contestant.first_name}} performing {{song.song_name}}</p>
 <p>You are the {{blog.blog_views}}th Eurovision fan to read this post!</p>
 <hr>
 <p>{{blog.blog_text}}</p>
+
+{% for comment in comments %}
+<p>{{comment.time}} {{comment.text}}</p>
+{% endfor %}
+
+<h1>Leave a comment</h1>
+<div class="form">
+    <form method="post" action="{{ comment_form_url }}">
+        {{ form.hidden_tag() }}
+        {{ form.name.label }} {{ form.name }}
+        <br>
+        {{ form.text.label }} {{ form.text }}
+        <br>
+        {{ form.submit }}
+        <br>
+    </form>
+</div>
+
 {% endblock %}
