@@ -11,6 +11,12 @@
     <br>
 Country: {{contestant.country}}
 </p>
+ {%if (song.query.filter_by(contestant_id=contestant.contestant_id).first().song_likes) != None: %}
+            <p>{{song.query.filter_by(contestant_id=contestant.contestant_id).first().song_likes}} people liked this</p>
+             {% endif %}
+<p>Like this post:
+                <button><a href="{{ url_for('likesong', contestant_id=contestant.contestant_id) }}">like</a></button>
+            </p>
 
 <hr>
     </div>
