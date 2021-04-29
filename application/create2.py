@@ -4,12 +4,12 @@
 # from application import db
 # from application.models import TestTable
 from application.models import *
+from application.password import hash_password
 from datetime import date, datetime
 
 # create the database schema
 db.drop_all()
 db.create_all()
-
 
 vincent = Contestant(first_name="Vincent", last_name="Bueno", pronoun="He/Him", dob=date(1985, 12, 10),
                      country="Austria")
@@ -61,13 +61,11 @@ db.session.add(omaga)
 db.session.add(russian_woman)
 db.session.commit()
 
-
-
-blog2 = Blog(date_posted = date(2021, 4, 26),
-             contestant_id = anxhela.contestant_id,
-             blog_title="A little bit about Anxhela Peristeri", blog_text="Anxhela Peristeri was born on 24 March 1986 into an Albanian family of the Eastern Orthodox faith in the city of Korce, then part of the People's Republic of Albania, present Albania.[1][2][3] Her grandfather is of Greek origin.[4][5] After graduating from high school in Tirana, Peristeri and her family moved to Greece.[6][7] Describing her life in the latter country, she had stated that she experienced discrimination because of her Albanian origin.[8][9] In December 2001, Peristeri unsuccessfully participated in the 40th edition of Festivali i Kenges with the song 'Vetem ty te kam'.[2] Later that year, she entered the Miss Albania national pageant in Tirana.[10][11] In June 2016, she emerged as the winner of the first season of Your Face Sounds Familiar.[12] Later, in December 2016, she debuted at Kenga Magjike with the song 'Genjeshtar', finishing in the second place.[13] Then in December 2017, she won the 19th edition of Kenga Magjike with the song 'E Cmendur'.[14]",
-             blog_views = 0)
-
+blog2 = Blog(date_posted=date(2021, 4, 26),
+             contestant_id=anxhela.contestant_id,
+             blog_title="A little bit about Anxhela Peristeri",
+             blog_text="Anxhela Peristeri was born on 24 March 1986 into an Albanian family of the Eastern Orthodox faith in the city of Korce, then part of the People's Republic of Albania, present Albania.[1][2][3] Her grandfather is of Greek origin.[4][5] After graduating from high school in Tirana, Peristeri and her family moved to Greece.[6][7] Describing her life in the latter country, she had stated that she experienced discrimination because of her Albanian origin.[8][9] In December 2001, Peristeri unsuccessfully participated in the 40th edition of Festivali i Kenges with the song 'Vetem ty te kam'.[2] Later that year, she entered the Miss Albania national pageant in Tirana.[10][11] In June 2016, she emerged as the winner of the first season of Your Face Sounds Familiar.[12] Later, in December 2016, she debuted at Kenga Magjike with the song 'Genjeshtar', finishing in the second place.[13] Then in December 2017, she won the 19th edition of Kenga Magjike with the song 'E Cmendur'.[14]",
+             blog_views=0)
 
 blog1 = Blog(date_posted=date(2021, 4, 23),
              contestant_id=vincent.contestant_id,
@@ -90,6 +88,10 @@ comment2 = Comment(time=datetime.utcnow(),
                    blog_id=blog1.blog_id)
 db.session.add(comment1)
 db.session.add(comment2)
+db.session.commit()
+
+user1 = User(name="John", username="johndoe", password_hash=hash_password(b"password"))
+db.session.add(user1)
 db.session.commit()
 
 

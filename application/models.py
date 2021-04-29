@@ -28,12 +28,14 @@ class Blog(db.Model):
     blog_text = db.Column(db.String(1000), nullable=False)
     blog_likes = db.Column(db.Integer, nullable=True)
 
+
 class Contact(db.Model):
     contact_id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
     subject = db.Column(db.String(30), nullable=False)
     message = db.Column(db.String(1000), nullable=False)
+
 
 class Comment(db.Model):
     comment_id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +44,11 @@ class Comment(db.Model):
     blog_id = db.Column(db.Integer, nullable=False)
 
 
+class User(db.Model):
+    user_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    username = db.Column(db.String(30), nullable=False, unique=True)
+    password_hash = db.Column(db.String(72), nullable=False)
 
 # 1. Models -- what tables and what columns
 # 2. CRUD (create read update delete)

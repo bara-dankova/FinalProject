@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body_content %}
+<h1>Login</h1>
+<div class="form">
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <br>
+        {{ form.username.label }} {{ form.username }}
+        <br>
+        {{ form.password.label }} {{ form.password }}
+        <br>
+        {{ form.submit }}
+        {#
+        <br>
+        {{ message }}
+        #}
+    </form>
+</div>
+{% endblock %}
