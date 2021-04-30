@@ -14,3 +14,8 @@ class CommentForm(FlaskForm):
     name = StringField('Name')
     text = StringField('Text')
     submit = SubmitField('Submit')
+
+
+class SearchForm(FlaskForm):
+    search = StringField('Search')
+    submit = SubmitField('Search')
