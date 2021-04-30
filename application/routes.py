@@ -2,21 +2,24 @@ from flask import render_template, request, url_for, redirect, session
 from application import app, db
 from application.forms import *
 from application.models import *
+from application.password import hash_password, check_password
 from datetime import datetime
 
 
 @app.route('/')
 @app.route('/home')
 def home():
+    user = session["user"] if "user" in session else None
     blogs = Blog.query.all()
     contestant = Contestant
     song = Song
-    return render_template('home.html', title='Home Page', blogs=blogs, contestant=contestant, song=song)
+    return render_template('home.html', title='Home Page', user=user, blogs=blogs, contestant=contestant, song=song)
 
 
 # create url for a particular blog post
 @app.route('/blogpost/<int:contestant_id>', methods=['GET', 'PUT'])
 def blogpost1(contestant_id):
+    user = session["user"] if "user" in session else None
     blog = Blog.query.filter_by(contestant_id=contestant_id).first()
     contestant = Contestant.query.filter_by(contestant_id=contestant_id).first()
 
@@ -30,7 +33,7 @@ def blogpost1(contestant_id):
         db.session.commit()
     # to query contestants by name in URL and find the appropriate blog post
     # contestant = Contestant.query.all(name_from_url)
-    return render_template('blogpost.html', title=contestant.first_name, blog=blog, contestant=contestant, song=song,
+    return render_template('blogpost.html', title=contestant.first_name, user=user, blog=blog, contestant=contestant, song=song,
                            comments=comments, form=CommentForm(),
                            comment_form_url=f"/blogpost/{contestant.contestant_id}/comment")
 
@@ -56,6 +59,7 @@ def add_comment(contestant_id):
 
 @app.route('/contact', methods=['POST', 'GET'])
 def contact():
+    user = session["user"] if "user" in session else None
     error = ''
     form = ContactUsForm()
     if request.method == 'POST':
@@ -72,11 +76,12 @@ def contact():
             db.session.add(message_received)
             db.session.commit()
             return render_template('thankyou.html', title='Thank you')
-    return render_template('contact.html', title='Contact Us!', message=error, form=form)
+    return render_template('contact.html', title='Contact Us!', user=user, message=error, form=form)
 
 
 @app.route('/leaderboard')
 def leaderboard():
+    user = session["user"] if "user" in session else None
     songs_list = Song.query.all()
     contestants_list = Contestant.query.all()
 
@@ -85,11 +90,12 @@ def leaderboard():
                            songs_list=songs_list,
                            contestants_list=contestants_list,
                            song=Song,
-                           contestant=Contestant)
+                           contestant=Contestant, user=user)
 
 
 @app.route('/blog/like/<int:contestant_id>', methods=[ 'GET', 'PUT'])
 def likeblog(contestant_id):
+    user = session["user"] if "user" in session else None
     liked_blog = Blog.query.filter_by(contestant_id=contestant_id).first()
 
     if liked_blog.blog_likes is not None:
@@ -104,6 +110,7 @@ def likeblog(contestant_id):
 # stillworking on connecting this to the right song
 @app.route('/song/like/<int:contestant_id>', methods=['GET', 'PUT'])
 def likesong(contestant_id):
+    user = session["user"] if "user" in session else None
     liked_song = Song.query.filter_by(contestant_id=contestant_id).first()
 
     if liked_song.song_likes is not None:
@@ -113,3 +120,53 @@ def likesong(contestant_id):
         setattr(liked_song, 'song_likes', 1)
         db.session.commit()
     return leaderboard()
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        user = session["user"] if "user" in session else None
+        form = RegisterForm()
+
+        return render_template('register.html', title='Register', user=user, form=form)
+    else:
+        form = RegisterForm()
+
+        name = form.name.data
+        username = form.username.data
+        password = form.password.data
+
+        user = User(name=name, username=username, password_hash=hash_password(password.encode()))
+        db.session.add(user)
+        db.session.commit()
+
+        session["user"] = {"name": user.name}
+
+        return redirect("/")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        user = session["user"] if "user" in session else None
+        form = LoginForm()
+
+        return render_template('login.html', title='Login', user=user, form=form)
+    else:
+        form = LoginForm()
+
+        username = form.username.data
+        password = form.password.data
+
+        user = User.query.filter_by(username=username).first()
+        if user and check_password(password.encode(), user.password_hash.encode()):
+            session["user"] = {"name": user.name}
+
+        return redirect("/")
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop("user")
+
+    return redirect("/")

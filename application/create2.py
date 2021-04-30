@@ -4,12 +4,12 @@
 # from application import db
 # from application.models import TestTable
 from application.models import *
+from application.password import hash_password
 from datetime import date, datetime
 
 # create the database schema
 db.drop_all()
 db.create_all()
-
 
 vincent = Contestant(first_name="Vincent", last_name="Bueno", pronoun="He/Him", dob=date(1985, 12, 10),
                      country="Austria")
@@ -96,6 +96,7 @@ blog1 = Blog(date_posted=date(2021, 4, 23),
                         "instruments—piano, guitar, drums, and bass guitar. His father was a former vocalist and a "
                         "1970 local band lead guitarist."),
              blog_views=0)
+
 db.session.add(blog1)
 db.session.add(blog2)
 db.session.add(blog3)
@@ -112,6 +113,10 @@ comment2 = Comment(time=datetime.utcnow(),
                    blog_id=blog1.blog_id)
 db.session.add(comment1)
 db.session.add(comment2)
+db.session.commit()
+
+user1 = User(name="John", username="johndoe", password_hash=hash_password(b"password"))
+db.session.add(user1)
 db.session.commit()
 
 
