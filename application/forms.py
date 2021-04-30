@@ -16,6 +16,10 @@ class CommentForm(FlaskForm):
     text = TextAreaField('Text')
     submit = SubmitField('Submit')
 
+    
+class SearchForm(FlaskForm):
+    search = StringField('Search')
+    submit = SubmitField('Search')
 
 class LoginForm(FlaskForm):
     username = EmailField('Email')

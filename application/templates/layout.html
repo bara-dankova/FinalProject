@@ -7,11 +7,11 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}"/>
 </head>
-
 <div class="topnav">
     <h1 id="site-name">Eurovision blog</h1>
 
     <a href="{{url_for('home')}}">Home</a>
+    <a href="{{url_for('leaderboard')}}" >Leaderboard</a>
     <a href="{{url_for('contact')}}">Contact</a>
 
     {% if user %}
@@ -25,7 +25,8 @@
 {% block body_content %}{% endblock %}
 </body>
 <footer>
-    <a href="https://eurovision.tv">Official Eurovision Website</a> <a href="https://www.instagram.com/eurovision">Eurovision
-    Instagram</a> <a href="https://www.facebook.com/EurovisionSongContest">Eurovision Facebook</a>
+    <a href="https://eurovision.tv">Official Eurovision Website</a>
+    <a href="https://www.instagram.com/eurovision">Eurovision Instagram</a>
+    <a href="https://www.facebook.com/EurovisionSongContest">Eurovision Facebook</a>
 </footer>
 </html>
