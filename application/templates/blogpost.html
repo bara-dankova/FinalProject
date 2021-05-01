@@ -7,9 +7,17 @@
  {%if blog.blog_likes !=0: %}
             <p>{{blog.blog_likes}} people liked this</p>
              {% endif %}
+ {% if user != None : %}
 <p>Like this post:
                 <button><a href="{{ url_for('likeblog', contestant_id=blog.contestant_id) }}">like</a></button>
             </p>
+ {% else %}
+    <p>Like this post:
+                <button><a href="{{ url_for('login')}}">like</a></button>
+            </p>
+    {% endif %}
+
+
 <hr>
 <p>{{blog.blog_text}}</p>
 

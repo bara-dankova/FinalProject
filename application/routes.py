@@ -1,3 +1,4 @@
+import sqlalchemy
 from flask import render_template, request, url_for, redirect, session
 from application import app, db
 from application.forms import *
@@ -107,7 +108,6 @@ def likeblog(contestant_id):
     return blogpost1(contestant_id)
 
 
-# stillworking on connecting this to the right song
 @app.route('/song/like/<int:contestant_id>', methods=['GET', 'PUT'])
 def likesong(contestant_id):
     user = session["user"] if "user" in session else None
@@ -127,21 +127,22 @@ def register():
     if request.method == 'GET':
         user = session["user"] if "user" in session else None
         form = RegisterForm()
-
         return render_template('register.html', title='Register', user=user, form=form)
     else:
-        form = RegisterForm()
+        try:
+            form = RegisterForm()
 
-        name = form.name.data
-        username = form.username.data
-        password = form.password.data
+            name = form.name.data
+            username = form.username.data
+            password = form.password.data
 
-        user = User(name=name, username=username, password_hash=hash_password(password.encode()))
-        db.session.add(user)
-        db.session.commit()
-
-        session["user"] = {"name": user.name}
-
+            user = User(name=name, username=username, password_hash=hash_password(password.encode()))
+            db.session.add(user)
+            db.session.commit()
+        except sqlalchemy.exc.IntegrityError:
+            return render_template('register.html', title='Register', form=form, message='This email address has already been used. Please use another email address')
+        else:
+            session["user"] = {"name": user.name}
         return redirect("/")
 
 
