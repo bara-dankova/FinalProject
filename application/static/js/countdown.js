@@ -8,13 +8,10 @@ let countDown = () => {
     let currentDate= new Date();
     let myDate = futureDate - currentDate;
 
-
-
     let days = Math.floor(myDate/ 1000 / 60 / 60 / 24);
     let hours = Math.floor(myDate/ 1000 / 60 / 60) % 24;
     let mins = Math.floor(myDate/ 1000 / 60) % 60;
     let secs = Math.floor(myDate/ 1000) % 60;
-
 
     daysItem.innerHTML = days;
     hoursItem.innerHTML = hours;
