@@ -5,14 +5,15 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/homelayout.css')}}"/>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/blogpost.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/homeblog.css')}}"/>
+
 
 
 </head>
 
 <body>
 
-    <div class="container-fluid col-sm-12 bg-1 text-center">
+    <div class="container-fluid col-md-12 bg-1 text-center">
         <div class="wrapper">
             <div class="">
                 <h1 class="title">COUNTDOWN</h1>
@@ -40,12 +41,12 @@
         </div>
     </div>
 
-<hr>
 
-<h1 class="title" align="center">Contestants</h1>
 
-    <div class="featured-posts-container bg-2 text-center">
+    <div class="featured-posts-container bg-1 text-center">
+        <h1 class="title" align="center">Blogs</h1>
         {%for post in blogs: %}
+        <br>
         <div class="wrapper">
                 <div class="featured-post">
                     <h2 class="blog-title"><a href="{{url_for('blogpost1', contestant_id=post.contestant_id)}}">{{post.blog_title}}</a></h2>
@@ -60,9 +61,11 @@
                             <button><a href="{{ url_for('likeblog', contestant_id=post.contestant_id) }}">like</a></button>
                         </p>
                         <p>{{post.blog_text}}</p>
-        <hr>        </div>
+                </div>
         </div>
         {% endfor %}
+        <hr>
+        </div>
     </div>
 </body>
 

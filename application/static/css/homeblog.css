@@ -1,0 +1,12 @@
+.featured-posts-container > div {
+margin:0 2rem;
+text-align: center;
+border: 2px solid white;
+padding:0px 20px;
+border-radius: 12px;
+box-shadow: 0px 2px 10px black;
+box-sizing: border-box;
+color: white;
+border-spacing: 15px;
+border-collapse: separate;
+}
