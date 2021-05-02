@@ -59,25 +59,29 @@ color: white;
 min-width: 150px;
 }
 
-@media (max-width:1000px){
-.countdown-container > div {
-margin:0 1rem;
-}
+#contestant-img {
+    border-radius: 50px;
 }
 
 @media (max-width:1000px){
-.countdown-container{
-flex-wrap: wrap;
+      .countdown-container > div {
+      margin:0 1rem;
+      }
 }
 
-.countdown-container > div{
-margin:1rem auto;
-max-width: 150px;
-}
+@media (max-width:1000px){
+      .countdown-container{
+      flex-wrap: wrap;
+      }
 
-.title{
-font-size: 1.5rem;
-line-height: 3.5rem;
-margin:10px 0px;
-}
+      .countdown-container > div{
+      margin:1rem auto;
+      max-width: 150px;
+      }
+
+      .title{
+      font-size: 1.5rem;
+      line-height: 3.5rem;
+      margin:10px 0px;
+      }
 }

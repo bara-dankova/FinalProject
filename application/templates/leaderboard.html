@@ -6,10 +6,11 @@
 <div class="leaderboard-container" align="center">
 {%for contestant in contestants_list: %}
 <div class="leaderboard-item">
-
+    <img  id="contestant-img" src="static/images/{{ contestant.contestant_id }}.jpeg" width="100" />
 <h2>{{song.query.filter_by(contestant_id=contestant.contestant_id).first().song_name}}</h2>
 <p> Performed by {{contestant.first_name}} {{contestant.last_name}} ({{contestant.pronoun}})
     <br>
+
 Country: {{contestant.country}}
 </p>
  {%if (song.query.filter_by(contestant_id=contestant.contestant_id).first().song_likes) != None: %}
@@ -17,7 +18,7 @@ Country: {{contestant.country}}
              {% endif %}
     {% if user != None : %}
 <p>Like this post:
-                <button><a href="{{ url_for('likesong', contestant_id=contestant.contestant_id) }}">like</a></button>
+                <button id="like"><a href="{{ url_for('likesong', contestant_id=contestant.contestant_id) }}">like</a></button>
             </p>
     {% else %}
     <p>Like this post:

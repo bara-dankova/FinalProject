@@ -37,7 +37,7 @@
                 </div>
                 <h1 class="title">UNTIL EUROVISION 2021</h1>
             </div>
-            <script src="{{url_for('static', filename='js/countdown.js')}}"/></script>
+            <script src="{{url_for('static', filename='js/countdown.js')}}"></script>
         </div>
     </div>
 
@@ -51,6 +51,7 @@
                 <div class="featured-post">
                     <h2 class="blog-title"><a href="{{url_for('blogpost1', contestant_id=post.contestant_id)}}">{{post.blog_title}}</a></h2>
                         <p>{{post.date_posted}}</p>
+                    <img id="contestant-img" src="static/images/{{ post.contestant_id }}.jpeg" width="250px"  />
                         <p class="blog-text">This post is about {{contestant.query.filter_by(contestant_id=post.contestant_id).first().first_name}} from {{contestant.query.filter_by(contestant_id=post.contestant_id).first().country}}
                      performing {{song.query.filter_by(contestant_id=post.contestant_id).first().song_name}}</p>
                         <p>You are the {{post.blog_views}}th Eurovision fan to read this post!</p>
@@ -58,7 +59,7 @@
                         <p>{{post.blog_likes}} people liked this</p>
                          {% endif %}
                         <p>Like this post:
-                            <button><a href="{{ url_for('likeblog', contestant_id=post.contestant_id) }}">like</a></button>
+                            <button id="like"><a href="{{ url_for('likeblog', contestant_id=post.contestant_id) }}">like</a></button>
                         </p>
                         <p>{{post.blog_text}}</p>
                 </div>
