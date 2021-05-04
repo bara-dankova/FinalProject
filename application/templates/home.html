@@ -54,12 +54,12 @@
                     <img id="contestant-img" src="static/images/{{ post.contestant_id }}.jpeg" width="250px"  />
                         <p class="blog-text">This post is about {{contestant.query.filter_by(contestant_id=post.contestant_id).first().first_name}} from {{contestant.query.filter_by(contestant_id=post.contestant_id).first().country}}
                      performing {{song.query.filter_by(contestant_id=post.contestant_id).first().song_name}}</p>
-                        <p>You are the {{post.blog_views}}th Eurovision fan to read this post!</p>
+                        <p>You are number {{post.blog_views}} Eurovision fan to read this post!</p>
                         {%if post.blog_likes !=0: %}
                         <p>{{post.blog_likes}} people liked this</p>
                          {% endif %}
                         <p>Like this post:
-                            <button id="like"><a href="{{ url_for('likeblog', contestant_id=post.contestant_id) }}">like</a></button>
+                            <a href="{{ url_for('likeblog', contestant_id=post.contestant_id) }}"><button id="like">like</button></a>
                         </p>
                         <p>{{post.blog_text}}</p>
                 </div>

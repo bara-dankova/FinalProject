@@ -18,7 +18,7 @@ Country: {{contestant.country}}
              {% endif %}
     {% if user != None : %}
 <p>Like this post:
-                <button id="like"><a href="{{ url_for('likesong', contestant_id=contestant.contestant_id) }}">like</a></button>
+                <a href="{{ url_for('likesong', contestant_id=contestant.contestant_id) }}"><button id="like">like</button></a>
             </p>
     {% else %}
     <p>Like this post:
