@@ -1,41 +1,75 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<h1>{{blog.blog_title}}</h1>
-<p>Published on {{blog.date_posted}}</p>
-<p>This post is about {{contestant.first_name}} performing {{song.song_name}}</p>
-<p>You are the {{blog.blog_views}}th Eurovision fan to read this post!</p>
- {%if blog.blog_likes !=0: %}
-            <p>{{blog.blog_likes}} people liked this</p>
-             {% endif %}
- {% if user != None : %}
-<p>Like this post:
-                <button id="like"><a href="{{ url_for('likeblog', contestant_id=blog.contestant_id) }}">like</a></button>
-            </p>
- {% else %}
-    <p>Like this post:
-                <button><a href="{{ url_for('login')}}">like</a></button>
-            </p>
-    {% endif %}
 
+<head>
 
-<hr>
-<p>{{blog.blog_text}}</p>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/blogpostcss.css')}}"/>
 
-{% for comment in comments %}
-<p>{{comment.time}} {{comment.text}}</p>
-{% endfor %}
+</head>
 
-<h1>Leave a comment</h1>
-<div class="form">
-    <form method="post" action="{{ comment_form_url }}">
-        {{ form.hidden_tag() }}
-        {{ form.name.label }} {{ form.name }}
-        <br>
-        {{ form.text.label }} {{ form.text }}
-        <br>
-        {{ form.submit }}
-        <br>
-    </form>
+<div class="banner text-center">
+    <div class="container">
+        <h1 class="title" align="center">{{blog.blog_title}}</h1>
+        <p>Published on {{blog.date_posted}}</p>
+    </div>
+    <br>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="col-sm-3">
+                <p>This post is about {{contestant.first_name}} performing {{song.song_name}}</p>
+            </div>
+            <div class="col-sm-3">
+                <p>You are the {{blog.blog_views}}th Eurovision fan to read this post!</p>
+                {%if blog.blog_likes !=0: %}
+            </div>
+            <div class="col-sm-3">
+                <p>{{blog.blog_likes}} people liked this</p>
+
+            </div>
+            <div class="col-sm-3">
+                {% endif %}
+                {% if user != None : %}
+                <p>Like this post:
+                            <button id="like"><a href="{{ url_for('likeblog', contestant_id=blog.contestant_id) }}">like</a></button>
+                        </p>
+                {% else %}
+                <p>Like this post:
+                    <button><a href="{{ url_for('login')}}">like</a></button>
+                </p>
+                {% endif %}
+            </div>
+            </div>
+            <br>
+            <div class="blog-text-container col-md-12" >
+                <p>{{blog.blog_text}}</p>
+            </div>
+<br>
+<br>
+<br>
+
+            <div class="comment-text-container col-md-12" >
+                {% for comment in comments %}
+                <p>{{comment.time}} {{comment.text}}</p>
+                {% endfor %}
+            </div>
+        </div>
+<br>
+<br>
+<br>
+        <h1>Leave a comment</h1>
+        <div class="form">
+            <form method="post" action="{{ comment_form_url }}">
+                {{ form.hidden_tag() }}
+                {{ form.name.label }} {{ form.name }}
+                <br>
+                {{ form.text.label }} {{ form.text }}
+                <br>
+                {{ form.submit }}
+                <br>
+            </form>
+        </div>
+    </div>
 </div>
+
 
 {% endblock %}
