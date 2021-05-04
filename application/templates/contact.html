@@ -1,18 +1,47 @@
 {% extends "layout.html" %}
 {% block body_content %}
-<h1 align="center">Contact us</h1>
-<div class="form" align="center">
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/loginpagess.css')}}"/>
+    <style>
+        .input {
+          color: #0e043a;
+          }
+    </style>
+</head>
+
+
+<div class="form">
+    <h1 class="title">CONTACT US</h1>
     <form method="post" action="">
         {{ form.hidden_tag() }}
-        {{ form.first_name.label }} {{ form.first_name }}
+        {{ form.first_name.label }}
         <br>
-        {{ form.last_name.label }} {{ form.last_name }}
+            <div class="input">
+                {{ form.first_name }}
+            </div>
         <br>
-        {{ form.subject.label }} {{ form.subject }}
+        {{ form.last_name.label }}
         <br>
-        {{ form.message.label }} {{ form.message }}
+            <div class="input">
+                {{ form.last_name }}
+            </div>
         <br>
-        {{ form.submit }}
+        {{ form.subject.label }}
+        <br>
+            <div class="input">
+                {{ form.subject }}
+            </div>
+        <br>
+        {{ form.message.label }}
+        <br>
+            <div class="input">
+                {{ form.message }}
+            </div>
+        <br>
+        <div class="input">
+                {{ form.submit }}
+        </div>
         <br>
     {{ message }}
     </form>
