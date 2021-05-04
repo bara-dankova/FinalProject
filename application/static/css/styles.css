@@ -12,3 +12,7 @@ letter-spacing: 2px;
 font-size: 3rem;
 line-height: 5.5rem;
 }
+
+#active {
+    text-decoration: underline;
+}

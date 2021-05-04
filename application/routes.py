@@ -14,7 +14,7 @@ def home():
     blogs = Blog.query.all()
     contestant = Contestant
     song = Song
-    return render_template('home.html', title='Home Page', user=user, blogs=blogs, contestant=contestant, song=song)
+    return render_template('home.html', title='Home Page', user=user, blogs=blogs, contestant=contestant, song=song, activityLeader='', activityContact = '', activityHome='active')
 
 
 # create url for a particular blog post
@@ -77,7 +77,7 @@ def contact():
             db.session.add(message_received)
             db.session.commit()
             return render_template('thankyou.html', title='Thank you')
-    return render_template('contact.html', title='Contact Us!', user=user, message=error, form=form)
+    return render_template('contact.html', title='Contact Us!', user=user, message=error, form=form, activityLeader='', activityContact='active', activityHome='')
 
 
 @app.route('/leaderboard')
@@ -91,10 +91,11 @@ def leaderboard():
                            songs_list=songs_list,
                            contestants_list=contestants_list,
                            song=Song,
-                           contestant=Contestant, user=user)
+                           contestant=Contestant, user=user,
+                           activityLeader='active', activityContact = '', activityHome='')
 
 
-@app.route('/blog/like/<int:contestant_id>', methods=[ 'GET', 'PUT'])
+@app.route('/blog/like/<int:contestant_id>', methods=['GET', 'PUT'])
 def likeblog(contestant_id):
     user = session["user"] if "user" in session else None
     liked_blog = Blog.query.filter_by(contestant_id=contestant_id).first()
@@ -105,7 +106,7 @@ def likeblog(contestant_id):
     else:
         setattr(liked_blog, 'blog_likes', 1)
         db.session.commit()
-    return blogpost1(contestant_id)
+    return redirect(f"/blogpost/{contestant_id}")
 
 
 @app.route('/song/like/<int:contestant_id>', methods=['GET', 'PUT'])
@@ -119,7 +120,7 @@ def likesong(contestant_id):
     else:
         setattr(liked_song, 'song_likes', 1)
         db.session.commit()
-    return leaderboard()
+    return redirect("/leaderboard")
 
 
 @app.route('/register', methods=['GET', 'POST'])

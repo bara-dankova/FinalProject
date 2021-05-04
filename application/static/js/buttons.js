@@ -1,6 +1,6 @@
-function disableButton(event){
-     event.target.disabled = true;
-     console.log('now')
+const disableButton = () => {
+     alert('hi')
+
 }
 
 document.getElementById("like").addEventListener('click', disableButton)
