@@ -1,21 +1,42 @@
 {% extends "layout.html" %}
 {% block body_content %}
 
-<h1 align="center">Login</h1>
-<div class="form">
-    <form method="post" align="center">
-        {{ form.hidden_tag() }}
-        <br>
-        {{ form.username.label }} {{ form.username }}
-        <br>
-        {{ form.password.label }} {{ form.password }}
-        <br>
-        {{ form.submit }}
-        {#
-        <br>
-        {{ message }}
-        #}
-    </form>
-</div>
+
+<head>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/loginpagess.css')}}"/>
+    <style>
+        .input {
+          color: #0e043a;
+          }
+    </style>
+</head>
+
+
+    <div class="form">
+        <h1 class="title">LOGIN</h1>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.username.label }}
+            <br>
+            <div class="input">
+                {{ form.username }}
+            </div>
+            <br>
+            {{ form.password.label }}
+            <br>
+            <div class="input">
+                {{ form.password }}
+            </div>
+            <br>
+            <div class="input">
+                {{ form.submit }}
+            </div>
+            {#
+            <br>
+            {{ message }}
+            #}
+        </form>
+    </div>
+
 {% endblock %}
 
