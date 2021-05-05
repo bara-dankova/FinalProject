@@ -50,13 +50,14 @@
 <br>
 <br>
 <br>
-
+            {% if comments%}
             <div class="comment-text-container col-md-12" >
                 {% for comment in comments %}
                 <p>{{comment.username}} | {{comment.time}} {{comment.text}}</p>
                 <hr>
                 {% endfor %}
             </div>
+        {% endif %}
         </div>
 <br>
 <br>
