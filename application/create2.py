@@ -107,10 +107,10 @@ db.session.commit()
 
 comment1 = Comment(time=datetime.utcnow(),
                    text="My first comment about Vincent Bueno",
-                   blog_id=blog1.blog_id)
+                   blog_id=blog1.blog_id, username='Bara')
 comment2 = Comment(time=datetime.utcnow(),
                    text="My second comment about Vincent Bueno",
-                   blog_id=blog1.blog_id)
+                   blog_id=blog1.blog_id, username='Dolapo')
 db.session.add(comment1)
 db.session.add(comment2)
 db.session.commit()

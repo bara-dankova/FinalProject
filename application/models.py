@@ -42,6 +42,7 @@ class Comment(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     text = db.Column(db.Text, nullable=False)
     blog_id = db.Column(db.Integer, nullable=False)
+    username = db.Column(db.String(200), nullable=False)
 
 
 class User(db.Model):
