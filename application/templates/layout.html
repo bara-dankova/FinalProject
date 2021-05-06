@@ -12,33 +12,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" >Eurovision blog</a>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" >Eurovision blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a id="{{activityHome}}" href="{{url_for('home')}}">Home</a></li>
+                        <li><a id="{{activityLeader}}" href="{{url_for('leaderboard')}}" >Leaderboard</a></li>
+                        <li><a id="{{activityContact}}" href="{{url_for('contact')}}">Contact</a></li>
+                        {% if user %}
+                            <li><a href="{{url_for('logout')}}">Logout ({{user.name}})</a></li>
+                        {% else %}
+                        <li><a href="{{url_for('login')}}">Login</a></li>
+                        <li><a href="{{url_for('register')}}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a id="{{activityHome}}" href="{{url_for('home')}}">Home</a></li>
-                    <li><a id="{{activityLeader}}" href="{{url_for('leaderboard')}}" >Leaderboard</a></li>
-                    <li><a id="{{activityContact}}" href="{{url_for('contact')}}">Contact</a></li>
-                    {% if user %}
-                        <li><a href="{{url_for('logout')}}">Logout ({{user.name}})</a></li>
-                    {% else %}
-                    <li><a href="{{url_for('login')}}">Login</a></li>
-                    <li><a href="{{url_for('register')}}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-{% block body_content %}{% endblock %}
-
+        </nav>
+    {% block body_content %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 <footer>
     <a href="https://eurovision.tv">Official Eurovision Website</a>
